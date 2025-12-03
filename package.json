@@ -1,0 +1,42 @@
+{
+  "name": "@juanaragon-co/transformer",
+  "private": false,
+  "version": "0.0.1-beta.0",
+  "description": "Utility class for transforming JS objects",
+  "main": "dist/index.js",
+  "repository": "https://github.com/JuanAragonCo/transformer",
+  "author": "Juan Aragon",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest",
+    "prettier": "prettier . --write",
+    "lint": "eslint"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/jest": "^30.0.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "jest": "^30.2.0",
+    "jiti": "^2.6.1",
+    "prettier": "3.7.3",
+    "rollup": "^4.52.3",
+    "rollup-plugin-dts": "^6.2.3",
+    "ts-jest": "^29.4.4",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.48.1"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.18"
+  }
+}
