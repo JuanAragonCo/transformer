@@ -1,7 +1,7 @@
 {
   "name": "@juanaragon-co/transformer",
   "private": false,
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "description": "Utility class for transforming JS objects",
   "main": "dist/index.js",
   "repository": "https://github.com/JuanAragonCo/transformer",

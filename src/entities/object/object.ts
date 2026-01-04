@@ -2,22 +2,23 @@ import { ValueNotFoundError } from "../../errors";
 import { ExtractEntity } from "../base";
 import { IConfig } from "../config";
 
-type Output<I> = {
+export type Output<I> = {
   [K in keyof I]: I[K] extends ExtractEntity<infer U> ? U : never;
 };
 
 export class ObjectEntity<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Input extends Record<string, ExtractEntity<any>>,
-> extends ExtractEntity<Output<Input>> {
+  O = Output<Input>,
+> extends ExtractEntity<O> {
   constructor(
     private readonly dto: Input,
-    config: IConfig<Output<Input>>,
+    config: IConfig<O>,
   ) {
     super(config.key, config);
   }
 
-  normalize(value: unknown): Output<Input> {
+  normalize(value: unknown): O {
     if (value === undefined || value === null || typeof value !== "object")
       throw new ValueNotFoundError(this.key, "ObjectEntity");
 
@@ -36,17 +37,17 @@ export class ObjectEntity<
       }
     });
 
-    return Object.fromEntries(normalizedEntries) as Output<Input>;
+    return Object.fromEntries(normalizedEntries) as O;
   }
 
-  transform(data: unknown) {
+  transform(data: unknown): O {
     const [extractedData, shouldNormalize] = this.extract(data);
-    if (extractedData === undefined || extractedData === null)
+    if (extractedData === undefined)
       throw new ValueNotFoundError(this.key, "ObjectEntity");
     if (shouldNormalize) {
       return this.normalize(extractedData);
     } else {
-      return extractedData;
+      return extractedData as O;
     }
   }
 }

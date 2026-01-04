@@ -8,6 +8,7 @@ import {
   DateEntity,
   ObjectEntity,
   TimestampEntity,
+  Output,
 } from "./entities";
 import {
   commonDefaultConfig,
@@ -38,6 +39,17 @@ const transformer = {
   ) => {
     const objectEntity = new ObjectEntity<I>(dto, config);
     return objectEntity;
+  },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  nullableObject: <I extends Record<string, ExtractEntity<any>>>(
+    dto: I,
+    config: INullableConfig<Output<I>> = defaultNullConfig,
+  ) => {
+    const objectEntity = new ObjectEntity<I>(dto, {
+      ...defaultNullConfig,
+      ...config,
+    } as IConfig<Output<I>>);
+    return objectEntity as ExtractEntity<Output<I> | null>;
   },
   string: (key?: string, config: IConfig<string> = commonDefaultConfig) => {
     const entity = new StringEntity(config.key || key, config);

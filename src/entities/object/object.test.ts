@@ -1,6 +1,30 @@
 import { t } from "../..";
 
 describe("object transformer", () => {
+  it("transforms nullable object from undefined", () => {
+    const transformer = t.object({
+      someObject: t.nullableObject({}, { key: "someKey" }),
+    });
+
+    const result = transformer.transform({});
+
+    expect(result).toStrictEqual({
+      someObject: null,
+    });
+  });
+  it("transforms nullable object from null", () => {
+    const transformer = t.object({
+      someObject: t.nullableObject({}, { key: "someKey" }),
+    });
+
+    const result = transformer.transform({
+      someObject: null,
+    });
+
+    expect(result).toStrictEqual({
+      someObject: null,
+    });
+  });
   it("transforms a nested object", () => {
     const transformer = t.object({
       user: t.object(
