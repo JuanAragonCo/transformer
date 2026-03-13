@@ -90,6 +90,21 @@ describe("string transformer", () => {
     expect(result.name).toBe(null);
   });
 
+  it("transforms nullable string", () => {
+    const toUpperCase = (val: string) => val.toUpperCase();
+    const transformer = t.object({
+      name: t.nullableString("firstName", { transformations: [toUpperCase] }),
+    });
+
+    const { name } = transformer.transform({ firstName: "john" });
+    expect(name).toBe("JOHN");
+
+    const { name: nullName } = transformer.transform({ firstName: null });
+    expect(nullName).toBe(null);
+    const { name: undefinedName } = transformer.transform({});
+    expect(undefinedName).toBe(null);
+  });
+
   it("throws an error if the data does not exist", () => {
     expect(() => {
       const transformer = t.object({

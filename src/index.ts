@@ -22,10 +22,10 @@ function nullableFn<T>(
   fn: (key: string | undefined, config: IConfig<T>) => ExtractEntity<T>,
 ) {
   return (key?: string, nullConfig: INullableConfig<T> = defaultNullConfig) => {
-    return fn(
-      key,
-      nullConfig as unknown as IConfig<T>,
-    ) as ExtractEntity<T | null>;
+    return fn(key, {
+      ...defaultNullConfig,
+      ...nullConfig,
+    } as unknown as IConfig<T>) as ExtractEntity<T | null>;
   };
 }
 
